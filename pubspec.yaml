@@ -11,6 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  menu_base:
+    path: ../menu_base
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

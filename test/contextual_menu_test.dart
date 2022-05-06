@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:contextual_menu/contextual_menu.dart';
+// import 'package:contextual_menu/contextual_menu.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('contextual_menu');
@@ -17,7 +17,7 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await ContextualMenu.platformVersion, '42');
-  });
+  // test('getPlatformVersion', () async {
+  //   expect(await ContextualMenu.platformVersion, '42');
+  // });
 }
