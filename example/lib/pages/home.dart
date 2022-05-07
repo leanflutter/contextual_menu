@@ -64,6 +64,7 @@ class _HomePageState extends State<HomePage> {
                 label: 'Checkbox1',
                 checked: true,
                 onClick: (menuItem) {
+                  BotToast.showText(text: 'Clicked Checkbox1');
                   menuItem.checked = !(menuItem.checked == true);
                 },
               ),
