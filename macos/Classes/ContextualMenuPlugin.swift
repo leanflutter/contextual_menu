@@ -61,8 +61,15 @@ public class ContextualMenuPlugin: NSObject, FlutterPlugin {
             }
         }
         
-        if (placement == "topRight") {
+        if (placement == "topLeft") {
             x -= menu?.size.width ?? 0
+            y += menu?.size.height ?? 0
+        } else if (placement == "topRight") {
+            y += menu?.size.height ?? 0
+        } else if (placement == "bottomLeft") {
+            x -= menu?.size.width ?? 0
+        } else if (placement == "bottomRight") {
+            // skip
         }
         
         menu?.popUp(
