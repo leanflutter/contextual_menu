@@ -28,60 +28,107 @@ class _HomePageState extends State<HomePage> {
     _menu ??= Menu(
       items: [
         MenuItem(
+          label: 'Look Up "LeanFlutter"',
+        ),
+        MenuItem(
+          label: 'Search with Google',
+        ),
+        MenuItem.separator(),
+        MenuItem(
+          label: 'Cut',
+        ),
+        MenuItem(
           label: 'Copy',
-          onClick: (_) {
-            BotToast.showText(text: 'Clicked Copy');
-          },
         ),
         MenuItem(
           label: 'Paste',
-          onClick: (_) {
-            BotToast.showText(text: 'Clicked Paste');
-          },
-        ),
-        MenuItem(
-          label: 'Paste as values',
-        ),
-        MenuItem.separator(),
-        MenuItem(
-          label: 'Item number two',
-        ),
-        MenuItem(
-          label: 'Disabled item',
           disabled: true,
         ),
-        MenuItem(
-          label: 'Disabled item with shortcut',
-          disabled: true,
-        ),
-        MenuItem.separator(),
         MenuItem.submenu(
-          label: 'Submenu',
+          label: 'Share',
           submenu: Menu(
             items: [
-              MenuItem.checkbox(
-                key: 'checkbox1',
-                label: 'Checkbox1',
-                checked: true,
-                onClick: (menuItem) {
-                  BotToast.showText(text: 'Clicked Checkbox1');
-                  menuItem.checked = !(menuItem.checked == true);
-                },
+              MenuItem(
+                label: 'Item 1',
+              ),
+              MenuItem(
+                label: 'Item 2',
               ),
               MenuItem.checkbox(
-                label: 'Checkbox2',
+                label: 'Centered Layout',
                 checked: false,
               ),
+              MenuItem.separator(),
               MenuItem.checkbox(
-                label: 'Checkbox3',
-                checked: null,
+                label: 'Show Primary Side Bar',
+                checked: true,
+              ),
+              MenuItem.checkbox(
+                label: 'Show Secondary Side Bar',
+                checked: true,
+              ),
+              MenuItem.checkbox(
+                label: 'Show Status Bar',
+                checked: true,
+              ),
+              MenuItem.checkbox(
+                label: 'Show Activity Bar',
+                checked: true,
+              ),
+              MenuItem.checkbox(
+                label: 'Show Panel Bar',
+                checked: false,
               ),
             ],
           ),
         ),
         MenuItem.separator(),
-        MenuItem(
-          label: 'Control shortcut',
+        MenuItem.submenu(
+          label: 'Font',
+          submenu: Menu(
+            items: [
+              MenuItem.checkbox(
+                label: 'Item 1',
+                checked: true,
+                onClick: (menuItem) {
+                  menuItem.checked = !(menuItem.checked == true);
+                },
+              ),
+              MenuItem.checkbox(
+                label: 'Item 2',
+                checked: false,
+                onClick: (menuItem) {
+                  menuItem.checked = !(menuItem.checked == true);
+                },
+              ),
+              MenuItem.separator(),
+              MenuItem(
+                label: 'Item 3',
+                checked: false,
+              ),
+              MenuItem(
+                label: 'Item 4',
+                checked: false,
+              ),
+              MenuItem(
+                label: 'Item 5',
+                checked: false,
+              ),
+            ],
+          ),
+        ),
+        MenuItem.submenu(
+          label: 'Speech',
+          submenu: Menu(
+            items: [
+              MenuItem(
+                label: 'Item 1',
+              ),
+              MenuItem(
+                label: 'Item 2',
+              ),
+            ],
+          ),
         ),
       ],
     );
