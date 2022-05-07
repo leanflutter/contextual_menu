@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:preference_list/preference_list.dart';
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool _shouldReact = false;
   Offset? _position;
+  Placement _placement = Placement.bottomLeft;
 
   Menu? _menu;
 
@@ -85,7 +87,7 @@ class _HomePageState extends State<HomePage> {
     popUpContextualMenu(
       _menu!,
       position: _position,
-      placement: Placement.topRight,
+      placement: _placement,
     );
   }
 
@@ -97,6 +99,18 @@ class _HomePageState extends State<HomePage> {
           children: [
             PreferenceListItem(
               title: const Text('popUp'),
+              accessoryView: ToggleButtons(
+                children: <Widget>[
+                  for (var placement in Placement.values)
+                    Text('${describeEnum(placement)}'),
+                ],
+                onPressed: (int index) async {
+                  _placement = Placement.values[index];
+                  setState(() {});
+                },
+                isSelected:
+                    Placement.values.map((e) => e == _placement).toList(),
+              ),
               onTap: () {
                 _position = null;
                 _handleClickPopUp();

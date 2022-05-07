@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -37,6 +38,7 @@ class _ContextualMenu with MenuBehavior {
   }) async {
     _menu = menu;
     final Map<String, dynamic> arguments = {
+      'devicePixelRatio': window.devicePixelRatio,
       'menu': menu.toJson(),
       'position': position != null
           ? {
@@ -53,7 +55,7 @@ class _ContextualMenu with MenuBehavior {
 Future<void> popUpContextualMenu(
   Menu menu, {
   Offset? position,
-  Placement placement = Placement.topLeft,
+  Placement placement = Placement.bottomRight,
 }) {
   return _ContextualMenu.instance.popUp(
     menu,
