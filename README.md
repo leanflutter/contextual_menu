@@ -21,6 +21,7 @@ English | [简体中文](./README-ZH.md)
 
 - [contextual_menu](#contextual_menu)
   - [Platform Support](#platform-support)
+  - [Screenshots](#screenshots)
   - [Quick Start](#quick-start)
     - [Installation](#installation)
     - [Usage](#usage)
@@ -35,6 +36,12 @@ English | [简体中文](./README-ZH.md)
 | Linux | macOS | Windows |
 | :---: | :---: | :-----: |
 |   ✔️   |   ✔️   |    ✔️    |
+
+## Screenshots
+
+| macOS                                                                                        | Linux                                                                                        | Windows                                                                                             |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| ![](https://github.com/leanflutter/contextual_menu/blob/main/screenshots/macos.png?raw=true) | ![](https://github.com/leanflutter/contextual_menu/blob/main/screenshots/linux.png?raw=true) | ![image](https://github.com/leanflutter/contextual_menu/blob/main/screenshots/windows.png?raw=true) |
 
 ## Quick Start
 
