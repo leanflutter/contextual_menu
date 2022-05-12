@@ -51,7 +51,7 @@
 
 ```yaml
 dependencies:
-  contextual_menu: ^0.1.4
+  contextual_menu: ^0.1.1
 ```
 
 或
@@ -67,6 +67,7 @@ dependencies:
 ### 用法
 
 ```dart
+import 'package:flutter/material.dart' hide MenuItem;
 import 'package:contextual_menu/contextual_menu.dart';
 
 Menu menu = Menu(

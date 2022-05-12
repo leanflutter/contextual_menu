@@ -51,7 +51,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  contextual_menu: ^0.1.4
+  contextual_menu: ^0.1.1
 ```
 
 Or
@@ -67,6 +67,7 @@ dependencies:
 ### Usage
 
 ```dart
+import 'package:flutter/material.dart' hide MenuItem;
 import 'package:contextual_menu/contextual_menu.dart';
 
 Menu menu = Menu(
