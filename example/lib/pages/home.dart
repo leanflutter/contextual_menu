@@ -1,7 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide MenuItem;
 import 'package:preference_list/preference_list.dart';
 import 'package:contextual_menu/contextual_menu.dart';
 

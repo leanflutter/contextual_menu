@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:menu_base/menu_base.dart';
 
 class _ContextualMenu with MenuBehavior {
