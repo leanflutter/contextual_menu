@@ -148,11 +148,19 @@ std::optional<LRESULT> ContextualMenuPlugin::HandleWindowProc(HWND hWnd,
   if (message == WM_COMMAND) {
     flutter::EncodableMap eventData = flutter::EncodableMap();
     eventData[flutter::EncodableValue("id")] =
-        flutter::EncodableValue((int)wParam);
+        flutter::EncodableValue((int)LOWORD(wParam));
 
     channel->InvokeMethod("onMenuItemClick",
                           std::make_unique<flutter::EncodableValue>(eventData));
+  } else if (message == WM_MENUSELECT) {
+    flutter::EncodableMap eventData = flutter::EncodableMap();
+    eventData[flutter::EncodableValue("id")] =
+        flutter::EncodableValue((int)LOWORD(wParam));
+
+    channel->InvokeMethod("onMenuItemHighlight",
+                          std::make_unique<flutter::EncodableValue>(eventData));
   }
+
   return std::nullopt;
 }
 
