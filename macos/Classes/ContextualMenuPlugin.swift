@@ -41,6 +41,12 @@ public class ContextualMenuPlugin: NSObject, FlutterPlugin {
             ]
             self.channel.invokeMethod("onMenuItemClick", arguments: args, result: nil)
         }
+        menu!.onMenuItemHighlight = { (menuItem: NSMenuItem?) in
+            let args: NSDictionary = [
+                "id": menuItem?.tag as Any,
+            ]
+            self.channel.invokeMethod("onMenuItemHighlight", arguments: args, result: nil)
+        }
         
         let position = args["position"]  as? [String: Any]
         let placement = args["placement"]  as! String
