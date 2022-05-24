@@ -46,6 +46,24 @@ void _on_activate(GtkMenuItem* item, gpointer user_data) {
                                   result_data, nullptr, nullptr, nullptr);
 }
 
+void _on_select(GtkMenuItem* item, gpointer user_data) {
+  gint id = GPOINTER_TO_INT(user_data);
+
+  g_autoptr(FlValue) result_data = fl_value_new_map();
+  fl_value_set_string_take(result_data, "id", fl_value_new_int(id));
+  fl_method_channel_invoke_method(plugin_instance->channel,
+                                  "onMenuItemHighlight", result_data, nullptr,
+                                  nullptr, nullptr);
+}
+
+void _on_deselect(GtkMenuItem* item, gpointer user_data) {
+  g_autoptr(FlValue) result_data = fl_value_new_map();
+  fl_value_set_string_take(result_data, "id", fl_value_new_null());
+  fl_method_channel_invoke_method(plugin_instance->channel,
+                                  "onMenuItemHighlight", result_data, nullptr,
+                                  nullptr, nullptr);
+}
+
 GtkWidget* _create_menu(FlValue* args) {
   FlValue* items_value = fl_value_lookup_string(args, "items");
 
@@ -87,6 +105,10 @@ GtkWidget* _create_menu(FlValue* args) {
       }
 
       g_signal_connect(G_OBJECT(item), "activate", G_CALLBACK(_on_activate),
+                       GINT_TO_POINTER(item_id));
+      g_signal_connect(G_OBJECT(item), "select", G_CALLBACK(_on_select),
+                       GINT_TO_POINTER(item_id));
+      g_signal_connect(G_OBJECT(item), "deselect", G_CALLBACK(_on_deselect),
                        GINT_TO_POINTER(item_id));
 
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
