@@ -46,7 +46,9 @@ class ContextualMenuPlugin : public flutter::Plugin {
 
   HMENU hMenu;
 
-  void ContextualMenuPlugin::_CreateMenu(HMENU menu, EncodableMap args);
+  void ContextualMenuPlugin::_CreateMenu(HMENU menu,
+                                         UINT_PTR menuId,
+                                         EncodableMap args);
 
   // Called for top-level WindowProc delegation.
   std::optional<LRESULT> ContextualMenuPlugin::HandleWindowProc(HWND hwnd,
@@ -92,9 +94,19 @@ ContextualMenuPlugin::ContextualMenuPlugin(
 
 ContextualMenuPlugin::~ContextualMenuPlugin() {}
 
-void ContextualMenuPlugin::_CreateMenu(HMENU menu, EncodableMap args) {
+void ContextualMenuPlugin::_CreateMenu(HMENU menu,
+                                       UINT_PTR menuId,
+                                       EncodableMap args) {
   EncodableList items =
       std::get<EncodableList>(args.at(EncodableValue("items")));
+
+  // Store the menuId in the application defined `dwMenuData` field. This
+  // allows us to retain the dart defined item id for submenu items.
+  MENUINFO menuInfo;
+  menuInfo.cbSize = sizeof(MENUINFO);
+  menuInfo.fMask = MIM_MENUDATA;
+  menuInfo.dwMenuData = menuId;
+  SetMenuInfo(menu, &menuInfo);
 
   int count = GetMenuItemCount(menu);
   for (int i = 0; i < count; i++) {
@@ -131,8 +143,9 @@ void ContextualMenuPlugin::_CreateMenu(HMENU menu, EncodableMap args) {
       } else if (type.compare("submenu") == 0) {
         uFlags |= MF_POPUP;
         HMENU sub_menu = ::CreatePopupMenu();
-        _CreateMenu(sub_menu, std::get<EncodableMap>(
-                                  item_map.at(EncodableValue("submenu"))));
+        _CreateMenu(
+            sub_menu, item_id,
+            std::get<EncodableMap>(item_map.at(EncodableValue("submenu"))));
         item_id = reinterpret_cast<UINT_PTR>(sub_menu);
       }
       AppendMenuW(menu, uFlags, item_id, g_converter.from_bytes(label).c_str());
@@ -153,9 +166,26 @@ std::optional<LRESULT> ContextualMenuPlugin::HandleWindowProc(HWND hWnd,
     channel->InvokeMethod("onMenuItemClick",
                           std::make_unique<flutter::EncodableValue>(eventData));
   } else if (message == WM_MENUSELECT) {
+    auto itemParam = LOWORD(wParam);
     flutter::EncodableMap eventData = flutter::EncodableMap();
-    eventData[flutter::EncodableValue("id")] =
-        flutter::EncodableValue((int)LOWORD(wParam));
+
+    if (itemParam < 256) {
+      auto subMenuHandle = GetSubMenu((HMENU)lParam, itemParam);
+
+      MENUINFO menuInfo;
+      menuInfo.cbSize = sizeof(MENUINFO);
+      menuInfo.fMask = MIM_MENUDATA;
+      auto getSubMenuInfoSuccess = GetMenuInfo(subMenuHandle, &menuInfo);
+      if (!getSubMenuInfoSuccess) {
+        return std::nullopt;
+      }
+
+      eventData[flutter::EncodableValue("id")] =
+          flutter::EncodableValue((int)menuInfo.dwMenuData);
+    } else {
+      eventData[flutter::EncodableValue("id")] =
+          flutter::EncodableValue((int)itemParam);
+    }
 
     channel->InvokeMethod("onMenuItemHighlight",
                           std::make_unique<flutter::EncodableValue>(eventData));
@@ -181,7 +211,8 @@ void ContextualMenuPlugin::PopUp(
       std::get<double>(args.at(flutter::EncodableValue("devicePixelRatio")));
 
   hMenu = CreatePopupMenu();
-  _CreateMenu(hMenu, std::get<EncodableMap>(args.at(EncodableValue("menu"))));
+  _CreateMenu(hMenu, 0,
+              std::get<EncodableMap>(args.at(EncodableValue("menu"))));
 
   double x, y;
 
