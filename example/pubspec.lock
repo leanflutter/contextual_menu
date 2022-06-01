@@ -56,7 +56,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.1.1"
+    version: "0.1.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -115,7 +115,7 @@ packages:
       name: menu_base
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0"
+    version: "0.1.1"
   meta:
     dependency: transitive
     description:

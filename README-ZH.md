@@ -53,7 +53,7 @@
 
 ```yaml
 dependencies:
-  contextual_menu: ^0.1.1
+  contextual_menu: ^0.1.2
 ```
 
 或
