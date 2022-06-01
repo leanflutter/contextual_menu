@@ -9,6 +9,7 @@ import AppKit
 
 public class ContextualMenu: NSMenu, NSMenuDelegate {
     public var onMenuItemClick:((NSMenuItem) -> Void)?
+    public var onMenuItemHighlight:((NSMenuItem?) -> Void)?
     
     public override init(title: String) {
         super.init(title: title)
@@ -81,9 +82,15 @@ public class ContextualMenu: NSMenu, NSMenuDelegate {
         }
     }
     
-    // NSMenuDelegate
+    // MARK: NSMenuDelegate
     
     public func menuDidClose(_ menu: NSMenu) {
         
+    }
+
+    public func menu(_ menu: NSMenu, willHighlight item: NSMenuItem?) {
+        if (onMenuItemHighlight != nil) {
+            self.onMenuItemHighlight!(item)
+        }
     }
 }

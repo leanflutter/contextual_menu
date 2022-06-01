@@ -16,6 +16,7 @@ class _ContextualMenu with MenuBehavior {
   final MethodChannel _channel = const MethodChannel('contextual_menu');
 
   Menu? _menu;
+  int? _lastHighlighted;
 
   Future<void> _methodCallHandler(MethodCall call) async {
     switch (call.method) {
@@ -25,6 +26,23 @@ class _ContextualMenu with MenuBehavior {
         if (menuItem != null) {
           menuItem.onClick!(menuItem);
         }
+        break;
+      case 'onMenuItemHighlight':
+        final id = call.arguments['id'] as int?;
+        if (_lastHighlighted != null && _lastHighlighted != id) {
+          final previouslyHighlighted =
+              _menu?.getMenuItemById(_lastHighlighted!);
+          previouslyHighlighted?.onLoseHighlight?.call(previouslyHighlighted);
+        }
+        _lastHighlighted = id;
+
+        if (id == null) {
+          break;
+        }
+
+        final menuItem = _menu?.getMenuItemById(id);
+        menuItem?.onHighlight?.call(menuItem);
+
         break;
     }
   }
