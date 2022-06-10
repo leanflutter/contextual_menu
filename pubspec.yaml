@@ -16,7 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  menu_base: ^0.1.1
+  menu_base: ^0.2.0
 
 dev_dependencies:
   flutter_test:
