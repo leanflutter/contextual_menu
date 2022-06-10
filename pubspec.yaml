@@ -16,7 +16,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  menu_base: ^0.2.0
+  menu_base:
+    git:
+      url: https://github.com/nbonamy/menu_base
 
 dev_dependencies:
   flutter_test:
