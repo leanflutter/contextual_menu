@@ -78,12 +78,36 @@ public class ContextualMenuPlugin: NSObject, FlutterPlugin {
             // skip
         }
         
-        menu?.popUp(
-            positioning: nil,
-            at: NSPoint(x: x, y: y),
-            in: mainWindow.contentView
+        let action = Action({ [self] in
+            menu?.popUp(
+                positioning: nil,
+                at: NSPoint(x: x, y: y),
+                in: mainWindow.contentView
+            )
+        })
+        RunLoop.current.perform(
+            #selector(action.action),
+            target: action,
+            argument: nil,
+            order: 0,
+            modes: [RunLoop.Mode.default]
         )
-        
+
         result(nil)
+    }
+}
+
+// Wrapper class to pass closures to Objective-C APIs that take selectors taken
+// from https://stackoverflow.com/a/36983811/1988017
+final class Action: NSObject {
+    private let _action: () -> ()
+
+    init(_ action: @escaping () -> ()) {
+        _action = action
+        super.init()
+    }
+
+    @objc func action() {
+        _action()
     }
 }
