@@ -8,7 +8,7 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -236,16 +236,16 @@ class _HomePageState extends State<HomePage> {
             PreferenceListItem(
               title: const Text('popUp'),
               accessoryView: ToggleButtons(
-                children: <Widget>[
-                  for (var placement in Placement.values)
-                    Text('${describeEnum(placement)}'),
-                ],
                 onPressed: (int index) async {
                   _placement = Placement.values[index];
                   setState(() {});
                 },
                 isSelected:
                     Placement.values.map((e) => e == _placement).toList(),
+                children: <Widget>[
+                  for (var placement in Placement.values)
+                    Text(describeEnum(placement)),
+                ],
               ),
               onTap: () {
                 _position = null;
