@@ -27,8 +27,8 @@ flutter:
   plugin:
     platforms:
       linux:
-        pluginClass: ContextualMenuPlugin
+        pluginClass: FlutterDesktopContextMenuPlugin
       macos:
-        pluginClass: ContextualMenuPlugin
+        pluginClass: FlutterDesktopContextMenuPlugin
       windows:
-        pluginClass: ContextualMenuPlugin
+        pluginClass: FlutterDesktopContextMenuPlugin

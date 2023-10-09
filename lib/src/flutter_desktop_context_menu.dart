@@ -6,15 +6,17 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_desktop_context_menu/flutter_desktop_context_menu.dart';
 
-class _ContextualMenu with MenuBehavior {
-  _ContextualMenu._() {
+class _FlutterDesktopContextMenu with MenuBehavior {
+  _FlutterDesktopContextMenu._() {
     _channel.setMethodCallHandler(_methodCallHandler);
   }
 
-  /// The shared instance of [_ContextualMenu].
-  static final _ContextualMenu instance = _ContextualMenu._();
+  /// The shared instance of [_FlutterDesktopContextMenu].
+  static final _FlutterDesktopContextMenu instance =
+      _FlutterDesktopContextMenu._();
 
-  final MethodChannel _channel = const MethodChannel('contextual_menu');
+  final MethodChannel _channel =
+      const MethodChannel('flutter_desktop_context_menu');
 
   Menu? _menu;
   int? _lastHighlighted;
@@ -71,12 +73,12 @@ class _ContextualMenu with MenuBehavior {
   }
 }
 
-Future<void> popUpContextualMenu(
+Future<void> popUpContextMenu(
   Menu menu, {
   Offset? position,
   Placement placement = Placement.bottomRight,
 }) {
-  return _ContextualMenu.instance.popUp(
+  return _FlutterDesktopContextMenu.instance.popUp(
     menu,
     position: position,
     placement: placement,

@@ -1,10 +1,10 @@
 import Cocoa
 import FlutterMacOS
 
-public class ContextualMenuPlugin: NSObject, FlutterPlugin {
+public class FlutterDesktopContextMenuPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "contextual_menu", binaryMessenger: registrar.messenger)
-        let instance = ContextualMenuPlugin()
+        let channel = FlutterMethodChannel(name: "flutter_desktop_context_menu", binaryMessenger: registrar.messenger)
+        let instance = FlutterDesktopContextMenuPlugin()
         instance.registrar = registrar
         instance.channel = channel
         registrar.addMethodCallDelegate(instance, channel: channel)
@@ -13,7 +13,7 @@ public class ContextualMenuPlugin: NSObject, FlutterPlugin {
     private var registrar: FlutterPluginRegistrar!;
     private var channel: FlutterMethodChannel!
     
-    private var menu: ContextualMenu?
+    private var menu: FlutterDesktopContextMenu?
     
     private var mainWindow: NSWindow {
         get {
@@ -33,7 +33,7 @@ public class ContextualMenuPlugin: NSObject, FlutterPlugin {
     
     public func popUp(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let args:[String: Any] = call.arguments as! [String: Any]
-        menu = ContextualMenu(args["menu"] as! [String: Any])
+        menu = FlutterDesktopContextMenu(args["menu"] as! [String: Any])
         menu!.onMenuItemClick = {
             (menuItem: NSMenuItem) in
             let args: NSDictionary = [

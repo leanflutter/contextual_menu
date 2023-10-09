@@ -1,4 +1,4 @@
-#include "include/contextual_menu/contextual_menu_plugin.h"
+#include "include/flutter_desktop_context_menu/flutter_desktop_context_menu_plugin.h"
 
 // This must be included before many other Windows headers.
 #include <windows.h>
@@ -28,13 +28,13 @@ const EncodableValue* ValueOrNull(const EncodableMap& map, const char* key) {
 std::unique_ptr<flutter::MethodChannel<EncodableValue>,
                 std::default_delete<flutter::MethodChannel<EncodableValue>>>
     channel = nullptr;
-class ContextualMenuPlugin : public flutter::Plugin {
+class FlutterDesktopContextMenuPlugin : public flutter::Plugin {
  public:
   static void RegisterWithRegistrar(flutter::PluginRegistrarWindows* registrar);
 
-  ContextualMenuPlugin(flutter::PluginRegistrarWindows* registrar);
+  FlutterDesktopContextMenuPlugin(flutter::PluginRegistrarWindows* registrar);
 
-  virtual ~ContextualMenuPlugin();
+  virtual ~FlutterDesktopContextMenuPlugin();
 
  private:
   std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> g_converter;
@@ -46,17 +46,17 @@ class ContextualMenuPlugin : public flutter::Plugin {
 
   HMENU hMenu;
 
-  void ContextualMenuPlugin::_CreateMenu(HMENU menu,
+  void FlutterDesktopContextMenuPlugin::_CreateMenu(HMENU menu,
                                          UINT_PTR menuId,
                                          EncodableMap args);
 
   // Called for top-level WindowProc delegation.
-  std::optional<LRESULT> ContextualMenuPlugin::HandleWindowProc(HWND hwnd,
+  std::optional<LRESULT> FlutterDesktopContextMenuPlugin::HandleWindowProc(HWND hwnd,
                                                                 UINT message,
                                                                 WPARAM wparam,
                                                                 LPARAM lparam);
-  HWND ContextualMenuPlugin::GetMainWindow();
-  void ContextualMenuPlugin::PopUp(
+  HWND FlutterDesktopContextMenuPlugin::GetMainWindow();
+  void FlutterDesktopContextMenuPlugin::PopUp(
       const flutter::MethodCall<EncodableValue>& method_call,
       std::unique_ptr<flutter::MethodResult<EncodableValue>> result);
 
@@ -67,13 +67,13 @@ class ContextualMenuPlugin : public flutter::Plugin {
 };
 
 // static
-void ContextualMenuPlugin::RegisterWithRegistrar(
+void FlutterDesktopContextMenuPlugin::RegisterWithRegistrar(
     flutter::PluginRegistrarWindows* registrar) {
   channel = std::make_unique<flutter::MethodChannel<EncodableValue>>(
-      registrar->messenger(), "contextual_menu",
+      registrar->messenger(), "flutter_desktop_context_menu",
       &flutter::StandardMethodCodec::GetInstance());
 
-  auto plugin = std::make_unique<ContextualMenuPlugin>(registrar);
+  auto plugin = std::make_unique<FlutterDesktopContextMenuPlugin>(registrar);
 
   channel->SetMethodCallHandler(
       [plugin_pointer = plugin.get()](const auto& call, auto result) {
@@ -83,7 +83,7 @@ void ContextualMenuPlugin::RegisterWithRegistrar(
   registrar->AddPlugin(std::move(plugin));
 }
 
-ContextualMenuPlugin::ContextualMenuPlugin(
+FlutterDesktopContextMenuPlugin::FlutterDesktopContextMenuPlugin(
     flutter::PluginRegistrarWindows* registrar)
     : registrar(registrar) {
   window_proc_id = registrar->RegisterTopLevelWindowProcDelegate(
@@ -92,9 +92,9 @@ ContextualMenuPlugin::ContextualMenuPlugin(
       });
 }
 
-ContextualMenuPlugin::~ContextualMenuPlugin() {}
+FlutterDesktopContextMenuPlugin::~FlutterDesktopContextMenuPlugin() {}
 
-void ContextualMenuPlugin::_CreateMenu(HMENU menu,
+void FlutterDesktopContextMenuPlugin::_CreateMenu(HMENU menu,
                                        UINT_PTR menuId,
                                        EncodableMap args) {
   EncodableList items =
@@ -153,7 +153,7 @@ void ContextualMenuPlugin::_CreateMenu(HMENU menu,
   }
 }
 
-std::optional<LRESULT> ContextualMenuPlugin::HandleWindowProc(HWND hWnd,
+std::optional<LRESULT> FlutterDesktopContextMenuPlugin::HandleWindowProc(HWND hWnd,
                                                               UINT message,
                                                               WPARAM wParam,
                                                               LPARAM lParam) {
@@ -194,11 +194,11 @@ std::optional<LRESULT> ContextualMenuPlugin::HandleWindowProc(HWND hWnd,
   return std::nullopt;
 }
 
-HWND ContextualMenuPlugin::GetMainWindow() {
+HWND FlutterDesktopContextMenuPlugin::GetMainWindow() {
   return ::GetAncestor(registrar->GetView()->GetNativeWindow(), GA_ROOT);
 }
 
-void ContextualMenuPlugin::PopUp(
+void FlutterDesktopContextMenuPlugin::PopUp(
     const flutter::MethodCall<EncodableValue>& method_call,
     std::unique_ptr<flutter::MethodResult<EncodableValue>> result) {
   HWND hWnd = GetMainWindow();
@@ -269,7 +269,7 @@ void ContextualMenuPlugin::PopUp(
   result->Success(EncodableValue(true));
 }
 
-void ContextualMenuPlugin::HandleMethodCall(
+void FlutterDesktopContextMenuPlugin::HandleMethodCall(
     const flutter::MethodCall<EncodableValue>& method_call,
     std::unique_ptr<flutter::MethodResult<EncodableValue>> result) {
   if (method_call.method_name().compare("popUp") == 0) {
@@ -281,9 +281,9 @@ void ContextualMenuPlugin::HandleMethodCall(
 
 }  // namespace
 
-void ContextualMenuPluginRegisterWithRegistrar(
+void FlutterDesktopContextMenuPluginRegisterWithRegistrar(
     FlutterDesktopPluginRegistrarRef registrar) {
-  ContextualMenuPlugin::RegisterWithRegistrar(
+  FlutterDesktopContextMenuPlugin::RegisterWithRegistrar(
       flutter::PluginRegistrarManager::GetInstance()
           ->GetRegistrar<flutter::PluginRegistrarWindows>(registrar));
 }

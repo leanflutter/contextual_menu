@@ -1,13 +1,6 @@
-//
-//  ContextualMenu.swift
-//  platform_context_menu
-//
-//  Created by Lijy91 on 2022/5/6.
-//
-
 import AppKit
 
-public class ContextualMenu: NSMenu, NSMenuDelegate {
+public class FlutterDesktopContextMenu: NSMenu, NSMenuDelegate {
     public var onMenuItemClick:((NSMenuItem) -> Void)?
     public var onMenuItemHighlight:((NSMenuItem?) -> Void)?
     
@@ -67,7 +60,7 @@ public class ContextualMenu: NSMenu, NSMenuDelegate {
                 break
             case "submenu":
                 if let submenuDict = itemDict["submenu"] as? NSDictionary {
-                    let submenu = ContextualMenu(submenuDict as! [String : Any])
+                    let submenu = FlutterDesktopContextMenu(submenuDict as! [String : Any])
                     submenu.onMenuItemClick = {
                         (menuItem: NSMenuItem) in
                         self.statusItemMenuButtonClicked(menuItem)

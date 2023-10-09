@@ -1,4 +1,4 @@
-#include "include/contextual_menu/contextual_menu_plugin.h"
+#include "include/flutter_desktop_context_menu/flutter_desktop_context_menu_plugin.h"
 
 #include <flutter_linux/flutter_linux.h>
 #include <gtk/gtk.h>
@@ -8,24 +8,24 @@
 #include <cstring>
 #include <map>
 
-#define CONTEXTUAL_MENU_PLUGIN(obj)                                     \
-  (G_TYPE_CHECK_INSTANCE_CAST((obj), contextual_menu_plugin_get_type(), \
-                              ContextualMenuPlugin))
+#define FLUTTER_DESKTOP_CONTEXT_MENU_PLUGIN(obj)                                     \
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), flutter_desktop_context_menu_plugin_get_type(), \
+                              FlutterDesktopContextMenuPlugin))
 
-ContextualMenuPlugin* plugin_instance;
+FlutterDesktopContextMenuPlugin* plugin_instance;
 
 GtkWidget* menu = nullptr;
 
-struct _ContextualMenuPlugin {
+struct _FlutterDesktopContextMenuPlugin {
   GObject parent_instance;
   FlPluginRegistrar* registrar;
   FlMethodChannel* channel;
 };
 
-G_DEFINE_TYPE(ContextualMenuPlugin, contextual_menu_plugin, g_object_get_type())
+G_DEFINE_TYPE(FlutterDesktopContextMenuPlugin, flutter_desktop_context_menu_plugin, g_object_get_type())
 
 // Gets the window being controlled.
-GtkWindow* get_window(ContextualMenuPlugin* self) {
+GtkWindow* get_window(FlutterDesktopContextMenuPlugin* self) {
   FlView* view = fl_plugin_registrar_get_view(self->registrar);
   if (view == nullptr)
     return nullptr;
@@ -33,7 +33,7 @@ GtkWindow* get_window(ContextualMenuPlugin* self) {
   return GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view)));
 }
 
-GdkWindow* get_gdk_window(ContextualMenuPlugin* self) {
+GdkWindow* get_gdk_window(FlutterDesktopContextMenuPlugin* self) {
   return gtk_widget_get_window(GTK_WIDGET(get_window(self)));
 }
 
@@ -117,7 +117,7 @@ GtkWidget* _create_menu(FlValue* args) {
   return menu;
 }
 
-static FlMethodResponse* pop_up(ContextualMenuPlugin* self, FlValue* args) {
+static FlMethodResponse* pop_up(FlutterDesktopContextMenuPlugin* self, FlValue* args) {
   menu = _create_menu(fl_value_lookup_string(args, "menu"));
   auto device_pixel_ratio = fl_value_lookup_string(args, "devicePixelRatio");
   auto position = fl_value_lookup_string(args, "position");
@@ -183,8 +183,8 @@ static FlMethodResponse* pop_up(ContextualMenuPlugin* self, FlValue* args) {
 }
 
 // Called when a method call is received from Flutter.
-static void contextual_menu_plugin_handle_method_call(
-    ContextualMenuPlugin* self,
+static void flutter_desktop_context_menu_plugin_handle_method_call(
+    FlutterDesktopContextMenuPlugin* self,
     FlMethodCall* method_call) {
   g_autoptr(FlMethodResponse) response = nullptr;
 
@@ -200,35 +200,35 @@ static void contextual_menu_plugin_handle_method_call(
   fl_method_call_respond(method_call, response, nullptr);
 }
 
-static void contextual_menu_plugin_dispose(GObject* object) {
-  G_OBJECT_CLASS(contextual_menu_plugin_parent_class)->dispose(object);
+static void flutter_desktop_context_menu_plugin_dispose(GObject* object) {
+  G_OBJECT_CLASS(flutter_desktop_context_menu_plugin_parent_class)->dispose(object);
 }
 
-static void contextual_menu_plugin_class_init(
-    ContextualMenuPluginClass* klass) {
-  G_OBJECT_CLASS(klass)->dispose = contextual_menu_plugin_dispose;
+static void flutter_desktop_context_menu_plugin_class_init(
+    FlutterDesktopContextMenuPluginClass* klass) {
+  G_OBJECT_CLASS(klass)->dispose = flutter_desktop_context_menu_plugin_dispose;
 }
 
-static void contextual_menu_plugin_init(ContextualMenuPlugin* self) {}
+static void flutter_desktop_context_menu_plugin_init(FlutterDesktopContextMenuPlugin* self) {}
 
 static void method_call_cb(FlMethodChannel* channel,
                            FlMethodCall* method_call,
                            gpointer user_data) {
-  ContextualMenuPlugin* plugin = CONTEXTUAL_MENU_PLUGIN(user_data);
-  contextual_menu_plugin_handle_method_call(plugin, method_call);
+  FlutterDesktopContextMenuPlugin* plugin = FLUTTER_DESKTOP_CONTEXT_MENU_PLUGIN(user_data);
+  flutter_desktop_context_menu_plugin_handle_method_call(plugin, method_call);
 }
 
-void contextual_menu_plugin_register_with_registrar(
+void flutter_desktop_context_menu_plugin_register_with_registrar(
     FlPluginRegistrar* registrar) {
-  ContextualMenuPlugin* plugin = CONTEXTUAL_MENU_PLUGIN(
-      g_object_new(contextual_menu_plugin_get_type(), nullptr));
+  FlutterDesktopContextMenuPlugin* plugin = FLUTTER_DESKTOP_CONTEXT_MENU_PLUGIN(
+      g_object_new(flutter_desktop_context_menu_plugin_get_type(), nullptr));
 
   plugin->registrar = FL_PLUGIN_REGISTRAR(g_object_ref(registrar));
 
   g_autoptr(FlStandardMethodCodec) codec = fl_standard_method_codec_new();
   plugin->channel =
       fl_method_channel_new(fl_plugin_registrar_get_messenger(registrar),
-                            "contextual_menu", FL_METHOD_CODEC(codec));
+                            "flutter_desktop_context_menu", FL_METHOD_CODEC(codec));
   fl_method_channel_set_method_call_handler(
       plugin->channel, method_call_cb, g_object_ref(plugin), g_object_unref);
 
