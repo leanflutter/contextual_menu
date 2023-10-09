@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
           label: 'Cut',
           shortcutKey: 'x',
           shortcutModifiers: ShortcutModifiers(
-              control: Platform.isWindows, command: Platform.isMacOS),
+              control: Platform.isWindows, meta: Platform.isMacOS),
           onClick: _onClick,
           onHighlight: _onHighlight,
           onLoseHighlight: _onLoseHighlight,
@@ -76,13 +76,16 @@ class _HomePageState extends State<HomePage> {
           label: 'Copy',
           shortcutKey: 'c',
           shortcutModifiers: ShortcutModifiers(
-              control: Platform.isWindows, command: Platform.isMacOS),
+              control: Platform.isWindows, meta: Platform.isMacOS),
           onClick: _onClick,
           onHighlight: _onHighlight,
           onLoseHighlight: _onLoseHighlight,
         ),
         MenuItem(
           label: 'Paste',
+          shortcutKey: 'v',
+          shortcutModifiers: ShortcutModifiers(
+              control: Platform.isWindows, meta: Platform.isMacOS),
           onClick: _onClick,
           onHighlight: _onHighlight,
           onLoseHighlight: _onLoseHighlight,

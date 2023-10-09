@@ -44,13 +44,13 @@ public class FlutterDesktopContextMenu: NSMenu, NSMenuDelegate {
             menuItem.keyEquivalent = shortcutKey
             menuItem.keyEquivalentModifierMask = []
             for modifier in shortcutModifiers {
-                if (modifier == "ctrl") {
+                if (modifier == "control") {
                     menuItem.keyEquivalentModifierMask = menuItem.keyEquivalentModifierMask.union(.control)
                 } else if (modifier == "shift") {
                     menuItem.keyEquivalentModifierMask = menuItem.keyEquivalentModifierMask.union(.shift)
                 } else if (modifier == "alt" || modifier == "option") {
                     menuItem.keyEquivalentModifierMask = menuItem.keyEquivalentModifierMask.union(.option)
-                } else if (modifier == "cmd") {
+                } else if (modifier == "meta" || modifier == "command") {
                     menuItem.keyEquivalentModifierMask = menuItem.keyEquivalentModifierMask.union(.command)
                 }
             }

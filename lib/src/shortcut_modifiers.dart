@@ -1,29 +1,29 @@
 class ShortcutModifiers {
-  final bool shift;
   final bool control;
-  final bool command;
-  final bool alt; // option for macOS
+  final bool shift;
+  final bool alt;
+  final bool meta;
 
   ShortcutModifiers({
-    this.shift = false,
     this.control = false,
-    this.command = false,
+    this.shift = false,
     this.alt = false,
+    this.meta = false,
   });
 
   List<String> toList() {
     List<String> modifiers = [];
+    if (control) {
+      modifiers.add('control');
+    }
     if (shift) {
       modifiers.add('shift');
     }
-    if (control) {
-      modifiers.add('ctrl');
-    }
-    if (command) {
-      modifiers.add('cmd');
-    }
     if (alt) {
       modifiers.add('alt');
+    }
+    if (meta) {
+      modifiers.add('meta');
     }
     return modifiers;
   }
