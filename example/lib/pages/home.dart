@@ -1,8 +1,10 @@
-import 'package:contextual_menu/contextual_menu.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart' hide MenuItem;
+import 'package:flutter/material.dart';
+
 import 'package:preference_list/preference_list.dart';
+
+import 'package:flutter_desktop_context_menu/flutter_desktop_context_menu.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

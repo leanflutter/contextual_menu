@@ -3,7 +3,8 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:menu_base/menu_base.dart';
+
+import 'package:flutter_desktop_context_menu/flutter_desktop_context_menu.dart';
 
 class _ContextualMenu with MenuBehavior {
   _ContextualMenu._() {
@@ -55,7 +56,8 @@ class _ContextualMenu with MenuBehavior {
   }) async {
     _menu = menu;
     final Map<String, dynamic> arguments = {
-      'devicePixelRatio': window.devicePixelRatio,
+      'devicePixelRatio':
+          PlatformDispatcher.instance.views.first.devicePixelRatio,
       'menu': menu.toJson(),
       'position': position != null
           ? {

@@ -1,3 +1,7 @@
+## 0.2.0
+
+* Support MacOS hotkeys
+
 ## 0.1.2
 
 * Allow running callbacks when an item's highlight status changes (#2)
