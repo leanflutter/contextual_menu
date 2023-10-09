@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> {
         MenuItem.separator(),
         MenuItem(
           label: 'Cut',
+          toolTip: 'Cut the text',
           shortcutKey: 'x',
           shortcutModifiers: ShortcutModifiers(
               control: Platform.isWindows, meta: Platform.isMacOS),
