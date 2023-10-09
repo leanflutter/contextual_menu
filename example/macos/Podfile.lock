@@ -1,22 +1,22 @@
 PODS:
-  - contextual_menu (0.0.1):
+  - flutter_desktop_context_menu (0.0.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
 
 DEPENDENCIES:
-  - contextual_menu (from `Flutter/ephemeral/.symlinks/plugins/contextual_menu/macos`)
+  - flutter_desktop_context_menu (from `Flutter/ephemeral/.symlinks/plugins/flutter_desktop_context_menu/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
 
 EXTERNAL SOURCES:
-  contextual_menu:
-    :path: Flutter/ephemeral/.symlinks/plugins/contextual_menu/macos
+  flutter_desktop_context_menu:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_desktop_context_menu/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
 
 SPEC CHECKSUMS:
-  contextual_menu: 6d35fb15942c0d8769f5eae8d3bda653994a6f5a
-  FlutterMacOS: ae6af50a8ea7d6103d888583d46bd8328a7e9811
+  flutter_desktop_context_menu: 46fe6779e953e2757da1847d3fb9acc717e60d67
+  FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
 
-PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c
+PODFILE CHECKSUM: 353c8bcc5d5b0994e508d035b5431cfe18c1dea7
 
 COCOAPODS: 1.11.3

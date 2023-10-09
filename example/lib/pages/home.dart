@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -63,12 +65,18 @@ class _HomePageState extends State<HomePage> {
         MenuItem.separator(),
         MenuItem(
           label: 'Cut',
+          shortcutKey: 'x',
+          shortcutModifiers: ShortcutModifiers(
+              control: Platform.isWindows, command: Platform.isMacOS),
           onClick: _onClick,
           onHighlight: _onHighlight,
           onLoseHighlight: _onLoseHighlight,
         ),
         MenuItem(
           label: 'Copy',
+          shortcutKey: 'c',
+          shortcutModifiers: ShortcutModifiers(
+              control: Platform.isWindows, command: Platform.isMacOS),
           onClick: _onClick,
           onHighlight: _onHighlight,
           onLoseHighlight: _onLoseHighlight,

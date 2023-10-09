@@ -6,9 +6,9 @@
 
 #include "generated_plugin_registrant.h"
 
-#include <flutter_desktop_context_menu/contextual_menu_plugin.h>
+#include <flutter_desktop_context_menu/flutter_desktop_context_menu_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
-  ContextualMenuPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("ContextualMenuPlugin"));
+  FlutterDesktopContextMenuPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("FlutterDesktopContextMenuPlugin"));
 }
