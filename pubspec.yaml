@@ -9,8 +9,8 @@ platforms:
   windows:
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.5.0"
+  sdk: ^3.3.0
+  flutter: ^3.19.0
 
 dependencies:
   flutter:
@@ -21,7 +21,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
   dependency_validator: ^3.0.0
 
