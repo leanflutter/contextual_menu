@@ -33,6 +33,8 @@ public class ContextualMenu: NSMenu, NSMenuDelegate {
             let toolTip: String = itemDict["toolTip"] as? String ?? ""
             let checked: Bool? = itemDict["checked"] as? Bool
             let disabled: Bool = itemDict["disabled"] as? Bool ?? true
+            let shortcutKey: String = itemDict["shortcutKey"] as? String ?? ""
+            let shortcutModifiers: [String] = itemDict["shortcutModifiers"] as? [String] ?? []
             
             if (type == "separator") {
                 menuItem = NSMenuItem.separator()
@@ -46,6 +48,20 @@ public class ContextualMenu: NSMenu, NSMenuDelegate {
             menuItem.isEnabled = !disabled
             menuItem.action = !disabled ? #selector(statusItemMenuButtonClicked) : nil
             menuItem.target = self
+
+            menuItem.keyEquivalent = shortcutKey
+            menuItem.keyEquivalentModifierMask = []
+            for modifier in shortcutModifiers {
+                if (modifier == "ctrl") {
+                    menuItem.keyEquivalentModifierMask = menuItem.keyEquivalentModifierMask.union(.control)
+                } else if (modifier == "shift") {
+                    menuItem.keyEquivalentModifierMask = menuItem.keyEquivalentModifierMask.union(.shift)
+                } else if (modifier == "alt" || modifier == "option") {
+                    menuItem.keyEquivalentModifierMask = menuItem.keyEquivalentModifierMask.union(.option)
+                } else if (modifier == "cmd") {
+                    menuItem.keyEquivalentModifierMask = menuItem.keyEquivalentModifierMask.union(.command)
+                }
+            }
             
             switch (type) {
             case "separator":
