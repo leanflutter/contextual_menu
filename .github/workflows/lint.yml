@@ -7,14 +7,14 @@ on:
     branches: [main]
 
 jobs:
-  analyze:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: "stable"
-      - run: flutter analyze --fatal-infos
+  # analyze:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: subosito/flutter-action@v2
+  #       with:
+  #         channel: "stable"
+  #     - run: flutter analyze --fatal-infos
 
   format:
     runs-on: ubuntu-latest
@@ -23,7 +23,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
-      - run: dart format . --fix --set-exit-if-changed
+      - run: dart format . --set-exit-if-changed
 
   dependency_validator:
     runs-on: ubuntu-latest

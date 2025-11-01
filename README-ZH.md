@@ -1,16 +1,15 @@
-> **🚀 快速发布您的应用**: 试试 [Fastforge](https://fastforge.dev) - 构建、打包和分发您的 Flutter 应用最简单的方式。
+> **⚠️ 迁移通知**: 本插件正在迁移到 [libnativeapi/nativeapi-flutter](https://github.com/libnativeapi/nativeapi-flutter)
+>
+> 新版本基于统一的 C++ 核心库（[libnativeapi/nativeapi](https://github.com/libnativeapi/nativeapi)），提供更完整、一致的跨平台原生 API 支持。
 
 # contextual_menu
 
-[![pub version][pub-image]][pub-url] [![][discord-image]][discord-url] ![][visits-count-image] 
+[![pub version][pub-image]][pub-url] [![][discord-image]][discord-url]
 
 [pub-image]: https://img.shields.io/pub/v/contextual_menu.svg
 [pub-url]: https://pub.dev/packages/contextual_menu
-
 [discord-image]: https://img.shields.io/discord/884679008049037342.svg
 [discord-url]: https://discord.gg/zPa6EZ2jqb
-
-[visits-count-image]: https://img.shields.io/badge/dynamic/json?label=Visits%20Count&query=value&url=https://api.countapi.xyz/hit/leanflutter.contextual_menu/visits
 
 这个插件允许 Flutter 桌面应用创建原生上下文菜单。
 
@@ -39,7 +38,7 @@
 
 | Linux | macOS | Windows |
 | :---: | :---: | :-----: |
-|   ✔️   |   ✔️   |    ✔️    |
+|  ✔️   |  ✔️   |   ✔️    |
 
 ## 截图
 

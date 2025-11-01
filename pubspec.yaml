@@ -1,6 +1,6 @@
 name: contextual_menu
 description: This plugin allows Flutter desktop apps to create native context menus.
-version: 0.1.2
+version: 0.1.3
 homepage: https://github.com/leanflutter/contextual_menu
 
 platforms:

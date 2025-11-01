@@ -1,3 +1,7 @@
+## 0.1.3
+
+* Add Migration Notice
+
 ## 0.1.2
 
 * Allow running callbacks when an item's highlight status changes (#2)
